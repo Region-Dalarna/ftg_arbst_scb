@@ -1,0 +1,461 @@
+/* ============================================================
+   app.css
+   App-specifik styling för Utbildning i Dalarna.
+   Laddas EFTER regiondalarna_ruf.css så lokala regler kan
+   överstyra den delade identiteten vid behov.
+   ============================================================ */
+
+/* ---- App-specifika designtokens (utöver regiondalarna_ruf.css) --------
+   Könsfärger enligt Region Dalarna. Läses även in på R-sidan av
+   def_farger.R så att diagram och CSS delar samma definition. */
+:root {
+  --rd-kon-kvinnor: #e2a855;   /* kvinnor/flickor */
+  --rd-kon-man:     #459079;   /* män/pojkar */
+  --rd-kommun-fyll: #a9d4e0;   /* enfärgade kommuner i kartan (kommunläge) */
+}
+
+/* ---- Full bredd: bryt ut header/footer ur container-fluids -------------
+   15px sidopadding (Bootstrap 3). Det tar bort de grå "listerna" i
+   topphörnen och låter blå listen + footern gå kant-i-kant.
+   overflow-x:hidden är en säkerhetsspärr mot horisontell scroll. */
+html, body { overflow-x: hidden; }
+
+.rd-header,
+.rd-footer {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+/* ---- N2: segmenterade knappar (radioGroupButtons) ----------------------
+   Västmanlands "knapprad"-känsla men i petrolblå identitet. */
+.rd-segmented { margin-bottom: 16px; }
+
+.rd-segmented .btn-group-container-sw {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.rd-segmented .radiobtn {
+  border: 1px solid var(--rd-border);
+  background: #fff;
+  color: var(--rd-text-muted);
+  border-radius: var(--rd-radius-sm) !important;
+  font-weight: 500;
+  padding: 8px 16px;
+  box-shadow: none;
+  transition: all 0.15s;
+}
+.rd-segmented .radiobtn:hover {
+  border-color: var(--rd-primary);
+  color: var(--rd-primary);
+}
+.rd-segmented .radiobtn.active,
+.rd-segmented .radiobtn.active:hover,
+.rd-segmented .radiobtn:active {
+  background: var(--rd-primary);
+  color: #fff;
+  border-color: var(--rd-primary);
+}
+
+/* ---- N3: indikatorknappar i 2-kolumnersrutnät -------------------------- */
+.rd-indikator-knappar .btn-group-container-sw {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-top: 4px;
+  width: 100%;
+}
+.rd-indikator-knappar * { box-sizing: border-box; }
+.rd-indikator-knappar .btn-group {
+  width: 100%;
+  min-width: 0;        /* tillåt krympning i rutnätet */
+  margin: 0 !important;
+}
+.rd-indikator-knappar .radiobtn {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  white-space: normal !important;   /* långa etiketter får radbryta */
+  overflow-wrap: anywhere;          /* bryt även långa ord vid behov */
+  word-break: break-word;
+  line-height: 1.2;
+  border: 1px solid var(--rd-border);
+  background: #fff;
+  color: var(--rd-text-muted);
+  border-radius: var(--rd-radius-sm) !important;
+  font-weight: 500;
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  box-shadow: none;
+  transition: all 0.15s;
+}
+.rd-indikator-knappar .radiobtn:hover {
+  border-color: var(--rd-primary);
+  color: var(--rd-primary);
+}
+.rd-indikator-knappar .radiobtn.active,
+.rd-indikator-knappar .radiobtn.active:hover {
+  background: var(--rd-primary);
+  color: #fff;
+  border-color: var(--rd-primary);
+}
+
+/* ---- Sidopanel: dämpa Bootstraps grå "well"-bakgrund -------------------- */
+.rd-sidebar.well { background: #fff; }
+
+/* ---- Källtext under diagram --------------------------------------------- */
+.rd-caption {
+  margin-top: 10px;
+  font-size: var(--rd-fs-micro);
+  color: var(--rd-text-muted);
+}
+
+/* ---- Dashboard: små paneler till höger om stapeln --------------------- */
+.rd-subcard {
+  background: #fff;
+  border: 1px solid var(--rd-border);
+  border-radius: var(--rd-radius);
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+.rd-subcard h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0 0 6px 0;
+}
+.rd-hint {
+  font-size: var(--rd-fs-micro);
+  color: var(--rd-text-muted);
+  margin: 0 0 6px 0;
+}
+
+/* ---- Könskontroll under stapeln -------------------------------------- */
+.rd-kon-kontroll { margin-top: 12px; text-align: center; }
+.rd-kon-kontroll .btn-group-container-sw { display: inline-flex; gap: 6px; }
+.rd-kon-kontroll .radiobtn {
+  border: 1px solid var(--rd-border);
+  background: #fff;
+  color: var(--rd-text-muted);
+  border-radius: var(--rd-radius-sm) !important;
+  font-weight: 500;
+  padding: 5px 14px;
+  font-size: 0.82rem;
+}
+.rd-kon-kontroll .radiobtn.active,
+.rd-kon-kontroll .radiobtn.active:hover {
+  background: var(--rd-primary);
+  color: #fff;
+  border-color: var(--rd-primary);
+}
+
+/* ---- Nedladdningsknappar (staplade i sidopanelen) -------------------- */
+.rd-nedladdningar { display: flex; flex-direction: column; gap: 8px; }
+.rd-nedladdningar .rd-btn {
+  width: 100%;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* ---- Hjälptext ovanför stapeln (tydlig tips-ruta, ej rubrik) -------- */
+.rd-hint--bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  max-width: 100%;
+  margin: 0 0 10px 0;
+  padding: 5px 12px;
+  font-size: 0.6rem;
+  font-style: italic;
+  color: var(--rd-primary-dark, #0f7090);
+  background: rgba(21, 141, 175, 0.08);
+  border-left: 3px solid var(--rd-accent, #54a1bd);
+  border-radius: 4px;
+}
+.rd-hint--bar::before {
+  content: "\24D8"; /* ⓘ */
+  font-style: normal;
+  font-weight: 700;
+  color: var(--rd-accent, #54a1bd);
+}
+
+/* ---- Brödsmula (navigering högst upp i kortet) ---------------------- */
+.rd-brodsmula {
+  font-size: 0.85rem;
+  color: var(--rd-text-muted);
+  margin-bottom: 14px;
+}
+
+/* ---- Årsknappar (etablering): actionButton-grupp ---- */
+.rd-arbtn-grupp { margin-bottom: 0.75rem; }
+.rd-arbtn-grupp .control-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+.rd-arbtn-rad {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.rd-arbtn {
+  background: #ffffff;
+  border: 1px solid var(--rd-primary, #158daf);
+  color: var(--rd-primary, #158daf);
+  border-radius: 4px;
+  padding: 2px 10px;
+}
+.rd-arbtn:hover { background: #eaf5f8; }
+.rd-arbtn-aktiv,
+.rd-arbtn-aktiv:hover {
+  background: var(--rd-primary, #158daf);
+  color: #ffffff;
+}
+/* Inaktiverade (saknar data): gråa och oklickbara. shinyjs::disabled
+   sätter attributet disabled på <button>, som vi stylar här. */
+.rd-arbtn[disabled],
+.rd-arbtn:disabled {
+  background: #f1f3f5;
+  border-color: #dee2e6;
+  color: #adb5bd;
+  cursor: not-allowed;
+  opacity: 1;
+}
+
+/* ---- Kompakt layout för tabellapp ---- */
+
+.rd-compact-page {
+  padding: 12px 24px 16px;
+}
+
+.rd-controls-compact {
+  padding: 14px 18px;
+  margin-bottom: 12px;
+}
+
+.rd-controls-compact .form-group {
+  margin-bottom: 4px;
+}
+
+.rd-controls-compact label,
+.rd-controls-compact .control-label {
+  margin-bottom: 4px;
+}
+
+.rd-controls-compact .rd-field {
+  margin-bottom: 0;
+}
+
+.rd-controls-compact .rd-info {
+  margin-top: 8px;
+  padding: 8px 10px;
+  font-size: 0.85rem;
+}
+
+.rd-controls-compact .rd-nedladdningar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.rd-controls-compact .rd-nedladdningar .btn,
+.rd-controls-compact .rd-nedladdningar .rd-btn {
+  width: auto;
+  flex: 1 1 auto;
+  padding: 7px 12px;
+  min-width: 190px;
+}
+
+.rd-table-card {
+  padding: 14px 18px;
+}
+
+.rd-table-card h2 {
+  margin-bottom: 2px;
+}
+
+.rd-table-card .rd-subtitle {
+  margin-bottom: 4px;
+}
+
+.rd-table-card .rd-caption {
+  margin-top: 2px;
+  margin-bottom: 4px;
+  font-size: 0.78rem;
+}
+
+/* Gör DT-tabellen så stor som möjligt inom fönstret */
+.rd-table-fill .dataTables_wrapper {
+  width: 100%;
+}
+
+/* OBS: sätt ALDRIG width: 100% !important på table.dataTable eller
+   .dataTables_scrollHeadInner här. Med scrollX klonar DT tabellhuvudet
+   till en egen tabell och sätter pixelexakta bredder så att huvud och
+   kropp linjerar – en !important-regel skriver över dem och gör att
+   kolumnrubrikerna hamnar ur läge mot kolumnerna. */
+
+/* ---- Extra kompakt kontrollrad ---- */
+
+.rd-controls-compact {
+  padding: 10px 14px !important;
+  margin-bottom: 8px !important;
+}
+
+.rd-controls-compact .form-group,
+.rd-controls-compact .rd-field {
+  margin-bottom: 0 !important;
+}
+
+.rd-controls-compact label,
+.rd-controls-compact .control-label {
+  margin-bottom: 3px !important;
+  font-size: 0.9rem;
+}
+
+.rd-controls-compact .bootstrap-select,
+.rd-controls-compact .btn-group {
+  margin-bottom: 0 !important;
+}
+
+.rd-download-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.rd-download-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+  min-width: 150px;
+}
+
+.rd-download-grid .btn,
+.rd-download-grid .rd-btn {
+  width: 100%;
+  min-width: 150px;
+  padding: 5px 10px !important;
+  font-size: 0.85rem !important;
+  line-height: 1.2;
+  white-space: nowrap;
+  text-align: center;
+  justify-content: center;
+}
+
+/* OBS: scopad till just ghost-varianten (.gpkg-knappen) – en tidigare
+   version av denna regel träffade alla .btn-default och vann över
+   .rd-btn--primary på grund av högre specificitet (två klasser mot en),
+   vilket gjorde att den petrolblå bakgrunden aldrig syntes och texten
+   blev vit-på-vitt tills hover avslöjade knappen. */
+.rd-download-grid .rd-btn--ghost.btn-default {
+  background: #fff;
+}
+
+/* ---- Kompakt tabellkort ---- */
+
+.rd-table-card {
+  padding: 10px 14px !important;
+}
+
+.rd-preview-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: baseline;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  color: var(--rd-text-muted);
+}
+
+.rd-preview-meta h2 {
+  margin: 0 !important;
+  font-size: 1.05rem !important;
+  color: var(--rd-text);
+}
+
+.rd-preview-meta span {
+  white-space: nowrap;
+}
+
+/* ---- "Senast uppdaterad": diskret, mindre framträdande än övrig metatext ---- */
+.rd-preview-meta .rd-uppdaterad {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: #adb5bd;
+}
+
+.rd-table-fill .dataTables_wrapper {
+  width: 100%;
+}
+
+/* ---- Kompakt DT-tabell: enradiga rubriker och celler ---- */
+
+.rd-table-fill table.dataTable th,
+.rd-table-fill table.dataTable td {
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+  padding: 4px 8px !important;
+  line-height: 1.15 !important;
+  vertical-align: top;
+}
+
+/* Kolumnrubriker */
+.rd-table-fill table.dataTable thead th {
+  font-size: 0.82rem;
+  font-weight: 600;
+  height: 28px;
+}
+
+/* Celler */
+.rd-table-fill table.dataTable tbody td {
+  font-size: 0.78rem;
+  height: 24px;
+}
+
+/* Filterraden ovanför kolumnerna */
+.rd-table-fill table.dataTable thead input {
+  height: 26px;
+  padding: 2px 6px;
+  font-size: 0.75rem;
+}
+
+/* Minska luft runt DT */
+.rd-table-fill .dataTables_wrapper {
+  font-size: 0.82rem;
+}
+
+/* (Borttagen breddregel för .dataTables_scrollHeadInner – se kommentaren
+   ovan om DT:s pixelexakta huvudbredder vid scrollX.) */
+
+/* ---- Direktlänk till statisk zip-fil, under respektive knapp -------- */
+.rd-direktlank {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--rd-text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-decoration: underline;
+}
+.rd-direktlank:hover {
+  color: var(--rd-primary-dark, #0f7090);
+}
+
+/* ---- Hjälptext om kolumnfilter i tabellhuvudet ----------------------- */
+.rd-preview-meta .rd-filterhint {
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--rd-primary-dark, #0f7090);
+}
