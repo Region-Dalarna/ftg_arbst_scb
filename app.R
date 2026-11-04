@@ -14,6 +14,12 @@ library(DT)
 plan(multisession)
 
 source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_shinyappar.R")
+library(rdshinyappar)
+
+# ---- Telemetri (användningsstatistik, se Adminportalen) --------------------
+telemetry <- skapa_telemetry("ftg_arbst_scb")
+
+APP_BESKRIVNING <- "Sök och ladda ned statistik om företag och arbetsställen i hela Sverige, filtrerat på län och kommun."
 
 `%||%` <- function(x, y) if (!is.null(x)) x else y
 
@@ -785,7 +791,8 @@ ui <- fluidPage(
   tags$head(
     tags$link(rel = "icon", type = "image/x-icon", href = "favicon.ico"),
     tags$link(rel = "stylesheet", type = "text/css", href = "regiondalarna_ruf.css"),
-    tags$link(rel = "stylesheet", type = "text/css", href = "app.css")
+    tags$link(rel = "stylesheet", type = "text/css", href = "app.css"),
+    telemetri_ui(telemetry)
   ),
 
   tags$div(
@@ -798,8 +805,7 @@ ui <- fluidPage(
       class  = "rd-header__right",
       href   = "https://www.regiondalarna.se",
       target = "_blank",
-      tags$img(src = "logo_liggande_fri_vit.png", alt = "Region Dalarna"),
-      tags$span("Samhällsanalys")
+      tags$img(src = "logo_liggande_fri_vit.png", alt = "Region Dalarna")
     )
   ),
 
@@ -918,6 +924,7 @@ ui <- fluidPage(
 # ── Server ──────────────────────────────────────────────────────────────────
 
 server <- function(input, output, session) {
+  rdshinyappar::telemetri_server(telemetry, navigation_id = "visa", forsta_flik = "ftg")
 
   # ── Notiser med explicit session ──────────────────────────────────────────
   # shiny::showNotification() hämtar sessionen implicit via

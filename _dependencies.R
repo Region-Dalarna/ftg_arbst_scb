@@ -3,4 +3,6 @@
 library(DBI)
 library(RPostgres)
 library(sf)
+library(rdshinyappar)
+library(shiny.telemetry)
 # ... lägg till fler paket vid behov
