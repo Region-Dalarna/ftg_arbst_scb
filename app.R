@@ -13,7 +13,7 @@ library(DT)
 
 plan(multisession)
 
-source("https://raw.githubusercontent.com/Region-Dalarna/funktioner/main/func_shinyappar.R")
+library(RPostgres)
 library(rdshinyappar)
 
 # ---- Telemetri (användningsstatistik, se Adminportalen) --------------------
