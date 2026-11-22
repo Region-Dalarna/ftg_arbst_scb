@@ -16,6 +16,10 @@ plan(multisession)
 library(RPostgres)
 library(rdshinyappar)
 
+# Felmeddelanden: på servern visas inga R-fel för användaren (sanitize = TRUE); felet skrivs ändå till appens logg
+# (se Adminportalen, Driftstatus - Loggar). Lokalt i RStudio visas felen i klartext för att underlätta felsökning.
+options(shiny.sanitize.errors = !interactive())
+
 # ---- Telemetri (användningsstatistik, se Adminportalen) --------------------
 telemetry <- skapa_telemetry("ftg_arbst_scb")
 
